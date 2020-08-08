@@ -1,0 +1,71 @@
+数据表的读写
+$ python manage.py  shell
+>>> from index.models import *    导入models
+>>> n = Name()   对name做一个实例化
+>>> type(n)
+>>> n.name='红楼梦'
+>>> n.author='曹雪芹'
+>>> n.stars=9.6
+>>> n.save()
+
+使用ORM框架api实现
+增
+>>> from Douban.models import *
+MovieInfo.objects.create(n_star='4', comment='鸿鸟cp再续前缘我可以')
+MovieInfo.objects.create(n_star='5', comment='值得一看的爽剧，第二集开始渐入佳境，片尾曲出来时跟非自然死亡lemon出来时一样恰到好处')
+MovieInfo.objects.create(n_star='5', comment='完美刚妹。')
+MovieInfo.objects.create(n_star='4', comment='四星观望，刚哥激光源cp真的好好嗑；第一集铺垫MIU和双男主剧情稍显平淡与套路，第二集泪目，但走不出童年阴影不是杀害职权骚扰上司的理由；第三集金句频出，请继续。渐入佳境了，水准不要掉呀！')
+MovieInfo.objects.create(n_star='3', comment='立意和层次一集高于一集（目前到第四集），漫才风的男男搭档近几年出现了几部（无间双龙、红白档案）。野木亜紀子的剧本功力虽潮涨潮落，但总能让人不断看到惊喜。一直觉得星野源的气质完全不像个搞音乐的，演员才是他正业一样。')
+MovieInfo.objects.create(n_star='5', comment='怎么这么多人jjww剧情的？机搜本来也就是第一个赶到现场收集完证据交给别的部门的一个部门，他们是不太可能参与搜查全过程。第一集算是介绍的很好了。')
+MovieInfo.objects.create(n_star='4', comment='第二集我可了')
+MovieInfo.objects.create(n_star='3', comment='野木亚纪子就像读书时班上那种作文回回高分的模范生，虽然她写不出旷世奇作，但是她绝对会有稳定的发挥')
+MovieInfo.objects.create(n_star='2', comment='与金城一纪一比，野木亚纪子才能当中毫无灵气的那一面曝露得淋漓尽致，也许是因为这几年写的剧接连失利，连以前的心气也快耗没了，以至于抛开无法掌握剧情节奏的老毛病以外，连擅长的人物塑造在这部剧里都显得如此的浮夸')
+MovieInfo.objects.create(n_star='1', comment='因为野木亚纪子我给0分都不为过')
+MovieInfo.objects.create(n_star='2', comment='第一集剧情一般')
+MovieInfo.objects.create(n_star='2', comment='剧情仿佛是豆瓣小组热帖挑挑拣拣凑出来的')
+MovieInfo.objects.create(n_star='1', comment='主角人设有一个不讨厌，野木唯一的长处也丢了，更不用讲case从推理到人情都写得稀烂，绫野刚何必高龄还要演低智成长型主角')
+MovieInfo.objects.create(n_star='4', comment='立意和层次一集高于一集（目前到第四集），漫才风的男男搭档近几年出现了几部（无间双龙、红白档案）。野木亜紀子的剧本功力虽潮涨潮落，但总能让人不断看到惊喜。一直觉得星野源的气质完全不像个搞音乐的，演员才是他正业一样。')
+MovieInfo.objects.create(n_star='3', comment='跑得飞快的兔子和成熟老道的狐狸的故事')
+MovieInfo.objects.create(n_star='2', comment='大导演套路一直是这样，看多了也审美疲劳。')
+MovieInfo.objects.create(n_star='3', comment='大导演套路依旧')
+MovieInfo.objects.create(n_star='4', comment='绫野刚角色不讨喜')
+MovieInfo.objects.create(n_star='4', comment='傻头傻脑的绫野刚太可爱了')
+MovieInfo.objects.create(n_star='3', comment='俩人没啥火花，剧情也一般')
+MovieInfo.objects.create(n_star='5', comment='我能说刚哥可爱到爆炸嘛')
+MovieInfo.objects.create(n_star='3', comment='剧情太过老套，虽然我很喜欢星野源。')
+MovieInfo.objects.create(n_star='5', comment=' 第一集一般般 但是第二集开始就每集都在赚我眼泪 第四集真的绝了')
+
+
+
+查
+>>> Name.objects.get(id=2).name
+
+改
+>>> Name.objects.filter(name='红楼梦').update(name='石头记')
+
+删 
+单条数据
+>>> Name.objects.filter(name='红楼梦').delete()
+全部数据
+>>> Name.objects.all().delete()
+
+其他常用查询
+>>> Name.objects.create(name='红楼梦', author='曹雪芹', stars='9.6')
+>>> Name.objects.create(name='活着', author='余华', stars='9.4')
+>>> Name.objects.all()[0].name
+>>> n = Name.objects.all()
+>>> n[0].name
+>>> n[1].name
+
+>>> Name.objects.values_list('name')
+<QuerySet [('红楼梦',), ('活着',)]>
+>>> Name.objects.values_list('name')[0]
+('红楼梦’,)
+>>> Name.objects.values_list('name')[:]
+<QuerySet [('红楼梦',), ('活着',)]>
+filter支持更多查询条件
+filter(name=xxx, id=yyy)
+
+可以引入python的函数
+>>> Name.objects.values_list('name').count()
+2

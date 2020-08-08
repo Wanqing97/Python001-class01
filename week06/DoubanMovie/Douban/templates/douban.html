@@ -1,0 +1,14 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+
+{% for short in shorts %}
+    <div>ID: {{ short.id }}   <br>
+           Short: {{ short.comment }} <br>
+           stars:  {{ short.n_star }}  <br>
+    </div>
+{% endfor %}
+</body>

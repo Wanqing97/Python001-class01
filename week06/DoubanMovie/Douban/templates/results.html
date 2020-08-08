@@ -1,0 +1,51 @@
+{% extends "base_layout.html" %} {% block title %}Welcome{% endblock %} 
+{% load static %}
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/timeline.css' %}">
+    <link rel="stylesheet" href="{% static 'css/morris.css' %}">
+{% endblock %} 
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> 舆情数据展示
+            </div>
+            <!-- /.panel-heading -->
+            {% if error_msg %}
+                <p>{{ error_msg }}</p>
+            {% endif %}
+
+            {% for post in post_list %}
+            <div>
+               <p>{{post.n_star}}</p>
+               <p>{{post.comment}}</p>
+            </div>
+            {% empty %}
+            <div class="no-post">
+                没有搜索到符合条件的评论
+            </div>
+            {% endfor %}
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+
+    </div>
+</div>
+<!-- /.row -->
+{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'js/raphael-min.js' %}"></script>
+    <script src="{% static 'js/morris.min.js' %}"></script>
+    <script src="{% static 'js/morris-data.js' %}"></script>
+
+{% endblock %}
